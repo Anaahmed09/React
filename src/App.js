@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { useLocation } from "react-router-dom";
+import MyFooter from "./components/MyFooter";
+import MyNavbar from "./components/MyNavbar";
+import ProductRoutes from "./ProductRoutes";
 
 function App() {
+  const myPath = useLocation().pathname;
+  const notFoundMatch = /^\/(product|product\/\d+|product\/\d+\/edit)?$/.test(
+    myPath
+  );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {notFoundMatch && <MyNavbar />}
+      <ProductRoutes />
+      {notFoundMatch && <MyFooter />}
     </div>
   );
 }
